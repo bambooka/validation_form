@@ -1,11 +1,13 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import CoordinateInput from "./components/CoordinateInput";
 
 function App() {
   return (
     <div className="App">
-      <CoordinateInput />
+      <div className='content-container'>
+        <CoordinateInput />
+      </div>
     </div>
   );
 }
