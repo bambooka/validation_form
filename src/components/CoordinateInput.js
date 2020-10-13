@@ -32,53 +32,62 @@ class CoordinateInput extends React.Component {
   }
 
   inputCoordinate(e) {
+    console.log(e)
     if(e.target.name === 'lan') {
+      console.log(this.state)
       this.setState({
         ...this.state.userData, currentInputLan: e.target.value
       })
+      console.log(this.state)
     } else if (e.target.name === 'log') {
+      console.log(this.state)
       this.setState({
-        ...this.state.userData, currentInputLan: e.target.value
+        ...this.state.userData, currentInputLog: e.target.value
       })
+      console.log(this.state)
     }
   }
 
   render() {
     return (
-      <form className='contact-form' onSubmit={this.sendEmail}>
+      <form className='contact-form'>
         <div className='form-body'>
-          <label>convert data
-            <input type='button' name='convert data' onClick={this.convertData}/>
+          <label>
+            <input value='convert' type='button' name='convert data' onClick={this.convertData}/>
           </label>
-          <label className='coordinate'> lan
+          <br />
+          <label className='coordinate'>
             <InputMask
-              onChange={this.inputCoordinate}
+              onChange={(e) => {
+               this.inputCoordinate(e)
+              }}
               mask='99°9999999'
               type='text'
-              name='topic'
-              placeholder='Topic'
+              name='lan'
+              placeholder='lan'
               value={this.state.userData.currentInputLan}
             /><br/>
           </label>
-          <label className='coordinate'> log
+          <label className='coordinate'>
             <InputMask
-              onChange={this.inputCoordinate}
-              mask="180°99'99.9999"
+              onChange={(e) => {
+                this.inputCoordinate(e)
+              }
+              }
+              // mask="180°99'99.9999"
               className='coordinate'
               type='text'
-              name='topic'
-              placeholder='Topic'
+              name='log'
+              placeholder='log'
               value={this.state.userData.currentInputLog}
-
             /><br/>
           </label>
           <label className='choose-format'> decimal
             <input
-              onChange={() => this.inputCoordinate()}
+
               className='choose-format'
               type='radio'
               name='format'
-              value={this.state.userData.currentInputLan}
             />
           </label>
           <label className='choose-format'> DMS

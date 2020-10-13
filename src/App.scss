@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+$primaryColor: greenyellow;
+
+.App {
+    text-align: center;
+}
+.App-header {
+    background-color: #282c34;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding: 5px;
+}
+
+.header-text {
+    position: relative;
+    top: 0;
+    left: 0;
+    transition: all 0.4s;
+    color: $primaryColor;
+    text-decoration: none;
+    font-family: 'Audiowide', cursive;
+}
+
+.header-text:hover {
+    color: $primaryColor;
+    top: 5px;
+    left: 5px;
+}
+
+.menu-container {
+    display: flex;
+    justify-content: space-between;
+    width: 35%
+}
+
+.content-container {
+    background-color: #282c34;
+    min-height: 100vh;
+    padding: 10px
+}
+
+h2 {
+    color: $primaryColor;
+    text-decoration: none;
+    font-family: 'Audiowide', cursive;
+    font-size: 2em;
+    text-align: center;
+}
+
+body {
+    overflow: hidden;
+}
+
+.about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    color: $primaryColor;
+}
+
+.photo-me {
+    width: 15rem;
+}
+
+.social {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    color: $primaryColor;
+}
+
+.social-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 25px;
+}
+
+.social-wrapper a {
+    color: $primaryColor;
+}
+
+.social-wrapper a svg {
+    font-size: 2rem;
+}
+
+.contact-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.card {
+    margin: 10px;
+    height: 300px;
+    box-sizing: border-box;
+    background-color: transparent !important;
+    border: 2px double $primaryColor !important;
+    color: $primaryColor;
+
+}
+
+.card:hover {
+    background-color: $primaryColor;
+}
+
+.card-title {
+    border-bottom: 2px solid $primaryColor;
+    text-align: center;
+}
+
+.slider-container {
+    margin-top: 5rem;
+}
+
+.language {
+    color: $primaryColor;
+    font-size: 1rem;
+    margin: 5px;
+    border-radius: 50px;
+    width: 100px
+}
+
+.links {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+.link {
+    text-transform: uppercase;
+}
+
+.link h6 {
+    color: $primaryColor !important;
+}
+
+.slick-prev, .slick-next {
+    background-color: transparent;
+    font-size: 0;
+    height: fit-content;
+    border: 1px solid $primaryColor;
+}
+
+.slick-slider {
+    display: flex !important;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.slick-prev:before {
+    content: "<";
+    color: $primaryColor;
+    font-size: 30px;
+}
+
+.slick-next:before {
+    content: ">";
+    color: $primaryColor;
+    font-size: 30px;
+}
+
+.contact-form {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 50vw;
+    align-items: center;
+    justify-content: center;
+    margin: 7rem auto;
+}
+
+.form-body input {
+    background-color: transparent;
+    border: 2px solid $primaryColor;
+    padding: 5px;
+    color: $primaryColor;
+}
+
+.user-info {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.user-info label:nth-child(2) .user-input {
+    float: right;
+}
+
+.topic-message {
+    width: 100%;
+}
+
+.user-input {
+    width: 95%;
+}
+
+textarea {
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid $primaryColor;
+    padding: 5px;
+    margin: 5px 0 !important;
+    color: $primaryColor;
+}
+
+.form-body button {
+    background-color: transparent;
+    color: $primaryColor;
+    border: 2px solid $primaryColor;
+    border-radius: 5px;
+}
+
+.form-body > button:hover {
+    background-color: $primaryColor;
+    color: #282c34;
+}
+
+.choose-format {
+    color: $primaryColor
+}
+
+.coordinate {
+    color: $primaryColor;
+}
+
+.coordinate {
+    color: $primaryColor
+}
