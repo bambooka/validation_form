@@ -1,115 +1,110 @@
-import React from "react";
+import React, {useState} from "react";
 import InputMask from 'react-input-mask';
 
 
-class CoordinateInput extends React.Component {
+const InitialState = {
+  mask: {
+    dec: {
+      lan: '99.9999999',
+      lon: '99.999999',
+    },
+    dms: {
+      lan: '999°99\'99.9999',
+      lon: '999°99\'99.9999'
+    }
+  },
+  currentInputLan: '',
+  currentInputLog: '',
+  format: 'decimal'
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      mask: {
-        dec: {
-          lan: '99.9999999',
-          lon: '989.999999'
-        },
-        dms: {
-          lan: "99°99'99.9999",
-          lon: "180°99'99'9999"
-        }
-      },
-      userData: {
-        currentInputLan: '',
-        currentInputLog: '',
-        format: 'decimal',
-        lan: '',
-        log: ''
-      }
+}
+
+const CoordinateInput = function () {
+  const [currentState, setState] = useState(InitialState);
+  const convertData = (e, data) => {
+    switch (e.target.value) {
+      case  'decimal':
+        setState(Object.assign({}, currentState, {format: 'decimal'}))
+        break;
+      case 'DMS':
+        setState(Object.assign({}, currentState, {format: 'DMS'}))
+    }
+
+    console.log(currentState)
+  }
+
+  const inputCoordinate = (e) => {
+    switch (e.target.name) {
+      case 'lan':
+        console.log(e.target.value)
+        setState(Object.assign({}, currentState, {currentInputLan: e.target.value}));
+        break;
+      case 'log':
+        setState(Object.assign({}, currentState, {currentInputLog: e.target.value}));
     }
   }
 
-  convertData(data) {
-    return data;
-  }
+  return (
+    <form className='contact-form'>
+      <div className='form-body'>
+        <label>
+          <input value='convert' type='button' name='convert data' onClick={convertData}/>
+        </label>
+        <br/>
+        <label className='coordinate'>
+          <InputMask
+            onChange={(e) => {
+              inputCoordinate(e)
+            }}
+            mask={currentState.format === "decimal" ? currentState.mask.dec.lan : currentState.mask.dms.lon}
+            type='text'
+            name='lan'
+            placeholder='lan'
+            value={currentState.currentInputLan}
+          /><br/>
+        </label>
+        <label className='coordinate'>
+          <InputMask onChange={(e) => {
+            inputCoordinate(e)
+          }}
+                     mask={currentState.format === "decimal" ? currentState.mask.dec.lan : currentState.mask.dms.lon}
+                     className='coordinate'
+                     type='text'
+                     name='log'
+                     placeholder='log'
+                     value={currentState.currentInputLog}
+          /><br/>
+        </label>
+        <label className='choose-format'> decimal
+          <input
+            onChange={(e) => convertData(e)}
+            className='choose-format'
+            type='radio'
+            name='format'
+            value='decimal'
+            checked={currentState.format === 'decimal'}
+          />
+        </label>
+        <label className='choose-format'> DMS
+          <input
+            onChange={(e, ) => convertData(e)}
+            className='choose-format'
+            type='radio'
+            name='format'
+            value='DMS'
+            checked={currentState.format === 'DMS'}
+          />
+        </label>
 
-  inputCoordinate(e) {
-    console.log(e)
-    if(e.target.name === 'lan') {
-      console.log(this.state)
-      this.setState({
-        ...this.state.userData, currentInputLan: e.target.value
-      })
-      console.log(this.state)
-    } else if (e.target.name === 'log') {
-      console.log(this.state)
-      this.setState({
-        ...this.state.userData, currentInputLog: e.target.value
-      })
-      console.log(this.state)
-    }
-  }
+        <hr/>
 
-  render() {
-    return (
-      <form className='contact-form'>
-        <div className='form-body'>
-          <label>
-            <input value='convert' type='button' name='convert data' onClick={this.convertData}/>
-          </label>
-          <br />
-          <label className='coordinate'>
-            <InputMask
-              onChange={(e) => {
-               this.inputCoordinate(e)
-              }}
-              mask='99°9999999'
-              type='text'
-              name='lan'
-              placeholder='lan'
-              value={this.state.userData.currentInputLan}
-            /><br/>
-          </label>
-          <label className='coordinate'>
-            <InputMask
-              onChange={(e) => {
-                this.inputCoordinate(e)
-              }
-              }
-              // mask="180°99'99.9999"
-              className='coordinate'
-              type='text'
-              name='log'
-              placeholder='log'
-              value={this.state.userData.currentInputLog}
-            /><br/>
-          </label>
-          <label className='choose-format'> decimal
-            <input
-
-              className='choose-format'
-              type='radio'
-              name='format'
-            />
-          </label>
-          <label className='choose-format'> DMS
-            <input
-              onChange={() => this.inputCoordinate()}
-              className='choose-format'
-              type='radio'
-              name='format'
-              value={this.state.userData.currentInputLog}
-            />
-          </label>
-
-          <hr />
-
-          <div className='result'>
-            <span>{this.state.userData.lan}</span>
-            <span>{this.state.userData.log}</span>
-          </div>
+        <div className='result'>
+          <span>{currentState.currentInputLan}</span> <br/>
+          <span>{currentState.currentInputLog}</span>
         </div>
-      </form>
-    )
-  }
+      </div>
+    </form>
+  )
 }
 
 export default CoordinateInput;
