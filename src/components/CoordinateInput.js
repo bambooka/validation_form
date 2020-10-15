@@ -1,12 +1,26 @@
 import React, {useState} from "react";
 import InputMask from 'react-input-mask';
 
+const a = /0-9/;
+const b = /[0-9]/;
+const c = /\./;
+const d = /[0-9]{7}/;
+
+const firstLetter = /(?!.*[DFIOQU])[A-VXY]/i;
+const letter = /(?!.*[DFIOQU])[A-Z]/i;
+const digit = /[0-9]/;
+const mask_test = [firstLetter, digit, letter, " ", digit, letter, digit];
+
+const mask_decimal = [a,b,c,d]
 
 const InitialState = {
   mask: {
     dec: {
-      lan: '99.9999999',
-      lon: '99.999999',
+      // lan: '99.9999999',
+      // lon: '99.999999',
+      lan: mask_decimal,
+      lon: mask_decimal,
+      reg: /[0-9][0-9]\.[0-9]{7}/
     },
     dms: {
       lan: '999°99\'99.9999',
@@ -20,7 +34,9 @@ const InitialState = {
 }
 
 const CoordinateInput = function () {
+
   const [currentState, setState] = useState(InitialState);
+
   const convertData = (e, data) => {
     switch (e.target.value) {
       case  'decimal':
@@ -67,7 +83,8 @@ const CoordinateInput = function () {
           <InputMask onChange={(e) => {
             inputCoordinate(e)
           }}
-                     mask={currentState.format === "decimal" ? currentState.mask.dec.lan : currentState.mask.dms.lon}
+                     // mask={currentState.format === "decimal" ? currentState.mask.dec.lan : currentState.mask.dms.lon}
+                     mask={mask_decimal}
                      className='coordinate'
                      type='text'
                      name='log'
