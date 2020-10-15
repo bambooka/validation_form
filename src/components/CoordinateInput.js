@@ -1,30 +1,15 @@
 import React, {useState} from "react";
-import InputMask from 'react-input-mask';
-
-const a = /0-9/;
-const b = /[0-9]/;
-const c = /\./;
-const d = /[0-9]{7}/;
-
-const firstLetter = /(?!.*[DFIOQU])[A-VXY]/i;
-const letter = /(?!.*[DFIOQU])[A-Z]/i;
-const digit = /[0-9]/;
-const mask_test = [firstLetter, digit, letter, " ", digit, letter, digit];
-
-const mask_decimal = [a,b,c,d]
+import MaskedInput from "react-text-mask/dist/reactTextMask";
 
 const InitialState = {
   mask: {
     dec: {
-      // lan: '99.9999999',
-      // lon: '99.999999',
-      lan: mask_decimal,
-      lon: mask_decimal,
-      reg: /[0-9][0-9]\.[0-9]{7}/
+      lan: [/[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/],
+      lon: [/[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/],
     },
     dms: {
-      lan: '999°99\'99.9999',
-      lon: '999°99\'99.9999'
+      lan: [/[0-1]/, /[0-8]/, /[0-9]/, '°', /[0-9]/, /[0-9]/, "'", /[0-9]/, /[0-9]/, ".", /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/],
+      lon: [/[0-1]/, /[0-8]/, /[0-9]/, '°', /[0-9]/, /[0-9]/, "'", /[0-9]/, /[0-9]/, ".", /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/]
     }
   },
   currentInputLan: '',
@@ -68,30 +53,33 @@ const CoordinateInput = function () {
         </label>
         <br/>
         <label className='coordinate'>
-          <InputMask
+          <MaskedInput
             onChange={(e) => {
               inputCoordinate(e)
             }}
             mask={currentState.format === "decimal" ? currentState.mask.dec.lan : currentState.mask.dms.lon}
             type='text'
             name='lan'
-            placeholder='lan'
             value={currentState.currentInputLan}
+            placeholder={currentState.format === 'decimal' ? '+12.3456789' : "-125°89'34.323"}
           /><br/>
         </label>
         <label className='coordinate'>
-          <InputMask onChange={(e) => {
+          <MaskedInput onChange={(e) => {
             inputCoordinate(e)
           }}
-                     // mask={currentState.format === "decimal" ? currentState.mask.dec.lan : currentState.mask.dms.lon}
-                     mask={mask_decimal}
-                     className='coordinate'
-                     type='text'
-                     name='log'
-                     placeholder='log'
-                     value={currentState.currentInputLog}
+                       mask={currentState.format === "decimal" ? currentState.mask.dec.lan : currentState.mask.dms.lon}
+                       className='coordinate'
+                       type='text'
+                       name='log'
+                       placeholder={currentState.format === 'decimal' ? '+12.3456789' : "-125°89'34.323"}
+                       value={currentState.currentInputLog}
           /><br/>
         </label>
+        {/*<MaskedInput*/}
+        {/*  guide={true}*/}
+        {/*  mask={[/[0-9]/,/[0-9]/,'.',/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/]} />*/}
+        {/*  mask={} />*/}
         <label className='choose-format'> decimal
           <input
             onChange={(e) => convertData(e)}
@@ -104,7 +92,7 @@ const CoordinateInput = function () {
         </label>
         <label className='choose-format'> DMS
           <input
-            onChange={(e, ) => convertData(e)}
+            onChange={(e,) => convertData(e)}
             className='choose-format'
             type='radio'
             name='format'
