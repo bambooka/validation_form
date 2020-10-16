@@ -13,9 +13,8 @@ const InitialState = {
     }
   },
   currentInputLan: '',
-  currentInputLog: '',
+  currentInputLon: '',
   format: 'decimal'
-
 }
 
 const CoordinateInput = function () {
@@ -30,8 +29,6 @@ const CoordinateInput = function () {
       case 'DMS':
         setState(Object.assign({}, currentState, {format: 'DMS'}))
     }
-
-    console.log(currentState)
   }
 
   const inputCoordinate = (e) => {
@@ -41,7 +38,7 @@ const CoordinateInput = function () {
         setState(Object.assign({}, currentState, {currentInputLan: e.target.value}));
         break;
       case 'log':
-        setState(Object.assign({}, currentState, {currentInputLog: e.target.value}));
+        setState(Object.assign({}, currentState, {currentInputLon: e.target.value}));
     }
   }
 
@@ -73,13 +70,9 @@ const CoordinateInput = function () {
                        type='text'
                        name='log'
                        placeholder={currentState.format === 'decimal' ? '+12.3456789' : "-125°89'34.323"}
-                       value={currentState.currentInputLog}
+                       value={currentState.currentInputLon}
           /><br/>
         </label>
-        {/*<MaskedInput*/}
-        {/*  guide={true}*/}
-        {/*  mask={[/[0-9]/,/[0-9]/,'.',/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/]} />*/}
-        {/*  mask={} />*/}
         <label className='choose-format'> decimal
           <input
             onChange={(e) => convertData(e)}
@@ -104,8 +97,13 @@ const CoordinateInput = function () {
         <hr/>
 
         <div className='result'>
-          <span>{currentState.currentInputLan}</span> <br/>
-          <span>{currentState.currentInputLog}</span>
+          <MaskedInput
+            mask={currentState.mask.dms.lan}
+            value={currentState.currentInputLan}
+          /> <br/>
+          <MaskedInput
+            mask={currentState.mask.dms.lon}
+            value={currentState.currentInputLon}/> <br/>
         </div>
       </div>
     </form>
